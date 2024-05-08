@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        #wicket {
+            color: red;
+        }
+    </style>
+</head>
+
+
+
+
+<body>
+
+    <div id="root" style="text-align: center;"></div>
+
+    <script type="text/babel">
+        let score = 0;
+        let wicket = 0;
+        let hit;
+        let ballWiseResult = [];
+        let inputref = React.createRef();
+        const increaseScore = (num) => {
+            if (wicket < 10) {
+                hit = num
+                rootElement.render(<App />)
+                score += num;
+                // rootElement.render(<App />)
+                ballWiseResult.unshift(num);
+                console.log(ballWiseResult);
+
+            }
+        }
+        const wicketDown = () => {
+            if (wicket < 10) {
+                hit = "W";
+                rootElement.render(<App />)
+                wicket++;
+                // rootElement.render(<App />)
+                ballWiseResult.unshift("W");
+                console.log(ballWiseResult);
+            }
+        }
+        const ScoreButtons = () => {
+            return (
+                <div>
+                    <button onClick={() => { increaseScore(0) }}>0</button>
+                    <button onClick={() => { increaseScore(1) }}>1</button>
+                    <button onClick={() => { increaseScore(2) }}>2</button>
+                    <button onClick={() => { increaseScore(3) }}>3</button>
+                    <button onClick={() => { increaseScore(4) }}>4</button>
+                    <button onClick={() => { increaseScore(5) }}>5</button>
+                    <button onClick={() => { increaseScore(6) }}>6</button>
+                    <button onClick={wicketDown}>Wicket</button></div>
+            )
+        }
+        const OverInsight = () => {
+
+            return ballWiseResult.map((res, index) => {
+
+                return (<>
+                    {index % 6 == 0 ? <br /> : null}
+                    <span>{res == 0 ? <b >.</b> : res == 'W' ? <b id="wicket">W</b> : res}&nbsp; &nbsp;</span>
+                </>
+                )
+            })
+        }
+        const submitCommentary = (event) => {
+            event.preventDefault();
+            rootElement.render(<App />)
+
+        }
+        const CommentaryBox = () => (<form action="" onSubmit={submitCommentary}>
+            <input type="text" name="score" id="score" value={hit} />
+            <input type="text" name="comment" id="comment" ref={inputref} placeholder="add you comment" />
+            <button>submit</button>
+        </form>)
+        const App = () => (<>
+            <h1>Cricket Score Boad</h1>
+            <h2>Score:{score}/{wicket}</h2>
+            <ScoreButtons />
+            <OverInsight />
+            <br />
+            <CommentaryBox />
+            <hr />
+            {ballWiseResult.map((res) => {
+                return (<><p>{res},  {inputref.current.value}</p></>)
+            })}
+        </>
+        )
+
+
+
+        const rootElement = ReactDOM.createRoot(document.getElementById("root"))
+        rootElement.render(<App />)
+    </script>
+</body>
+
+</html>

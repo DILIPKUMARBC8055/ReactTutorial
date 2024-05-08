@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+
+
+
+
+
+    <script type="text/babel">
+
+        const name = "DILIP";
+        const age = 10;
+        //any valid expression that resolve to the value will be shown 
+        const city = null;
+        const bool = true;
+        const Sum = () => 20 + 20;
+        const header = <h1>hello</h1>
+        //rendering array and object
+        const arr = [1, 2, 3, 4, 5];
+        const obj = { name: "Manju", age: 19 }
+        const cars = ["kia", "innova", "Audi", "BMW"]
+
+        //array of object
+        const objArr = [{ name: "dilip", age: 20, city: "bangl" }, { name: "Manju", age: 20, city: "bangl" }, { name: "Chandu", age: 20, city: "bangl" }]
+
+        function ArrayObject(objArr) {
+            return (objArr.map((a, index) =>
+                <tr key={index}>
+                    <td >{a.name}</td>
+                    <td>{a.age}</td>
+                    <td>{a.city}</td>
+                </tr>
+
+            ))
+        }
+
+
+        const Show = () => (
+            <>
+                <h1>Name: {name}</h1>
+                <p>age :{age}</p>
+                <p>city :{city}</p>
+                <p>bool :{bool ? "true" : "false"}</p>
+                <p>sum :{Sum()}</p>
+                {header}
+                <h1>{arr}</h1>
+                {arr.map((a, index) => <h1 key={index}>{a}</h1>)}
+                <h2>{obj.age}</h2>
+                <ul>
+                    {cars.map((a, index) => <li key={index}>{a}</li>)}
+                </ul>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>age</th>
+                            <th>city</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {ArrayObject(objArr)}
+                    </tbody>
+                </table>
+            </>
+        )
+
+        //and operator
+        const AndOperator = () => {
+            const status = false;
+            return (<>
+                <h1>Hello {status ? "Alexa" : "user"}!</h1>
+                <h2>{status && "Welcome to the portal"}</h2>
+
+            </>)
+        }
+        const OROperator = () => {
+            const status = true;
+            const firstName = "Dilip";
+            const lastName = "";
+            return (<>
+                <h1>Hello {status ? lastName || firstName : "user"}!</h1>
+                <h2>{status && "Welcome to the portal"}</h2>
+
+            </>)
+        }
+        ReactDOM.createRoot(document.getElementById("root")).render(<OROperator />)
+    </script>
+</body>
+
+</html>
